@@ -1,4 +1,4 @@
-# Network Intrusion Detection System
+# Network Intrusion Detection System (which was a packet sniffer at first)
 
 This project is a simple Network Intrusion Detection System (NIDS) implemented in C. It captures network packets and analyzes them to detect potential security threats such as port scanning, DoS attacks, malware, and anomalies.
 
