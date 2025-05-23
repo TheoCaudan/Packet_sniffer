@@ -46,7 +46,6 @@ Detected threats are logged in a file specified by the `LOG_FILE` macro in `dete
 ## Known Issues
 
 - The code uses raw sockets, which require root privileges.
-- The logging function in `detection.c` contains a typo (`==` instead of `=`) that needs to be corrected.
 - The `print_data` function may not correctly print non-alphanumeric characters.
 
 ## Future Improvements
