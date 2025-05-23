@@ -39,7 +39,7 @@ void load_signatures(const char* filename) {
 }
 
 void log_packet(const char* log_message, const char* packet_data) {
-    FILE *logfile == fopen(LOG_FILE, "a");
+    FILE *logfile = fopen(LOG_FILE, "a");
     if (logfile == NULL) {
         perror("Error opening log file");
         return;
@@ -84,7 +84,7 @@ void detect_dos_attack(const char* src_ip) {
         dos_count[src_ip]++;
         if (difftime(now, dos_time[src_ip]) < 60) {
             if (dos_count[src_ip] > 1000000) {
-                char log_messgae[256];
+                char log_message[256];
                 snprintf(log_message, sizeof(log_message), "Potential DoS attack detected from %s", src_ip);
                 log_packet(log_message, src_ip);
                 printf("%s\n", log_message);
@@ -108,14 +108,14 @@ void detect_malware(unsigned char * buffer, int size) {
     }
 }
 
-void detect_anomaly(int size) {
-    packet.sizes.push_back(size);
-    if (packet_sizes.size() > 100) { // Keep the last 100 packet sizes
+void detect_anomaly(unsigned char* buffer, int size) {
+    packet_sizes.push_back(size);
+    if (packet_sizes.size() > 100) {
         packet_sizes.erase(packet_sizes.begin());
     }
 
     double average_size = std::accumulate(packet_sizes.begin(), packet_sizes.end(), 0.0) / packet_sizes.size();
-    if(size > average_size * 2) { // Detect if packet size is really greater than average
+    if (size > average_size * 2) {
         char log_message[256];
         snprintf(log_message, sizeof(log_message), "Anomaly detected: packet size %d exceeds average %f", size, average_size);
         log_packet(log_message, (char*)buffer);
